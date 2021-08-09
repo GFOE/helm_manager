@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "helm_manager");
   ros::NodeHandle nh_private("~");
-  
+
   std::string output_type = "helm";
   nh_private.getParam("output_type", output_type);
 
@@ -44,6 +44,6 @@ int main(int argc, char **argv)
     ROS_ERROR_STREAM("Could not create publisher of type " << output_type);
     return 1;
   }
-    
+
   return 0;
 }
