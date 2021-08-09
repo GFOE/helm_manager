@@ -156,8 +156,11 @@ public:
   {
     if(canPublish(mode, publisher))
     {
+      // clamp the linear velocities to m_max_speed before forwarding to the ASV
       geometry_msgs::TwistStamped twist_clamped = *msg;
       twist_clamped.twist.linear.x = std::max(-m_max_speed, std::min(m_max_speed, twist_clamped.twist.linear.x));
+      twist_clamped.twist.linear.y = std::max(-m_max_speed, std::min(m_max_speed, twist_clamped.twist.linear.y));
+      twist_clamped.twist.linear.z = std::max(-m_max_speed, std::min(m_max_speed, twist_clamped.twist.linear.z));
       twist_clamped.twist.angular.z = std::max(-m_max_yaw_speed, std::min(m_max_yaw_speed, twist_clamped.twist.angular.z));
       m_twist_pub.publish(twist_clamped);
     }
