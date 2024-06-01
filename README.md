@@ -10,5 +10,19 @@ active vs standby
 
 Helm and TwistStamped
 
-## 
+## Node: helm_manager
+
+### Subscribed Topics
+
+* `piloting_mode` (std_msgs::String)
+* `status/helm`
+
+### Published Topics
+
+* `Heartbeat` (marine_msgs::Heartbeat)
+
+== Parameters
+
+* `~piloting_mode_prefix` (String)
+
 
