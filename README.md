@@ -8,12 +8,14 @@ Acts as a mode-dependent mux (input selection) for either helm or twiststamped m
 
 ## Piloting modes
 
-It appears that the user can specify arrays/lists of "piloting modes".  There are two lists of modes: "active" modes and "standby" modes.  The "active" modes have "output enabled".  I think "output enabled" actually means that the node then subscripts to the "helm" and "cmd_vel" topics 
+It appears that the user can specify arrays/lists of "piloting modes".  There are two lists of modes: "active" modes and "standby" modes.  The "active" modes have "output enabled".  I think "output enabled" actually means that the node then subscribes to the "helm" and "cmd_vel" topics for that mode.
 
 The default setup is to have:
 
 * active modes:  ['manual', 'autonomous']
 * standby modes: ['standby']
+
+The actual mode of operation is the internal state of the node that determines which subscribed topic (twiststamped/helm) is then output.  (I'll call this the AMO becuase the use of active/enabled/standby is very confusing in this context.) The AMO is set by the subscription to `piloting_mode`.  There can only be one AOM at any time.  All the piloting modes publish on their own `active` topics to indicate if they are the current AMO. (Based on the source it appears that there is no validation on the String received on the `piloting_mode` subscription, so not sure what happens if there is an error in the String.)
 
 ## Control message types and conversion
 
@@ -96,6 +98,7 @@ Resulting Subscribers:
 
 Resulting Publishers
 
+* `annie/project11/piloting_mode`(std_msgs::String)
 * `annie/control/cmd_vel`(geometry_msgs::TwistStamped)
 * `annie/piloting_mode/standby/active`(std_msgs::Bool)
 * `annie/piloting_mode/manual/active`(std_msgs::Bool)
