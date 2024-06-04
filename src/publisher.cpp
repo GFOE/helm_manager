@@ -91,7 +91,8 @@ void Publisher::update(const std::string & mode, const project11_msgs::Helm::Con
       twist.header = msg->header;
       twist.twist.linear.x = msg->throttle*m_max_speed;
       twist.twist.linear.x = std::max(-m_max_speed, std::min(m_max_speed, twist.twist.linear.x));
-      twist.twist.angular.z = -msg->rudder*m_max_yaw_speed;
+      twist.twist.linear.y = std::max(-m_max_speed, std::min(m_max_speed, twist.twist.linear.y));
+      twist.twist.linear.z = std::max(-m_max_speed, std::min(m_max_speed, twist.twist.linear.z));
       twist.twist.angular.z = std::max(-m_max_yaw_speed, std::min(m_max_yaw_speed, twist.twist.angular.z));
       m_twist_pub.publish(twist);
     }
