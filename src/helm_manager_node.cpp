@@ -7,7 +7,6 @@
 #include "publisher.h"
 #include "piloting_mode.h"
 
-
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "helm_manager");
